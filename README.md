@@ -2,6 +2,8 @@
 Building on MacOS
 I only made this work with Android so far...
 
+Heavy inspiration from [Tauri Deno Starter](https://github.com/marc2332/tauri-deno-starter)!
+
 ![Now you, too, can create fake native deno phone apps](./screenshot.png)
 
 # Environment Setup
