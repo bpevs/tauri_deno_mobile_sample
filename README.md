@@ -70,4 +70,4 @@ How we got the repo to this point...
 ### Android
 - `tauri run android init`
 - `tauri run android dev`
-- `tauri run android build --debug` (for some reason release builds no bueno?)
+- `tauri run android build --debug` (need to sign app for release build to work)
