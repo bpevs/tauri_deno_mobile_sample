@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "ES2021",
+      "dom",
+      "dom.iterable"
+    ],
+    "jsx": "react",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment"
+  },
+  "importMap": "import_map.json",
+  "fmt": {
+    "files": {
+      "include": ["src-www/"],
+      "exclude": ["src-www/dist/"]
+    },
+  },
+  "lint": {
+    "files": {
+      "include": ["src-www/"],
+      "exclude": ["src-www/dist/"]
+    }
+  },
+  "test": {
+    "files": {
+      "include": ["src-www/"],
+      "exclude": ["src-www/dist/"]
+    }
+  },
+  "tasks": {
+    "test": "deno test -A ./src-www",
+    "test:all": "deno fmt && deno task check && deno lint && deno task test",
+    "test:update": "deno test -A -- --update source",
+    "check": "deno check ./src-www/index.tsx",
+    "run": "cargo tauri dev",
+    "build": "cargo tauri build"
+  }
+}
