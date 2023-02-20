@@ -10,15 +10,11 @@ Heavy inspiration from [Tauri Deno Starter](https://github.com/marc2332/tauri-de
 
 Assuming you have already installed latest `Deno` and `Rust`...
 
-### Install rust-openssl and full xcode (Maybe optional?)
+### Install full xcode (Maybe optional?)
 
 I had to install this to run `cargo mobile` and `cargo android`, which I mistakenly used first. So maybe `cargo tauri android` gets around this? I haven't uninstalled it, so not sure if it's actually necessary.
 
-```sh
-export PATH="/usr/local/opt/openssl@3/bin:$PATH"
-```
-
-Also, when I was running `cargo mobile`, it made me use the full xcode instead of xcode-select, because it was trying to build for iOS. So maybe that is required as well, not sure.
+When I was running `cargo mobile`, it made me use the full xcode instead of xcode-select, because it was trying to build for iOS. So maybe that is required as well, not sure.
 
 ### Install Tauri Alpha Version (with Mobile)
 
@@ -52,14 +48,15 @@ export NDK_HOME="$ANDROID_HOME/ndk/25.1.8937393"
 
 How we got the repo to this point...
 
-- `cargo tauri init`
+- build /gen dir: `cargo tauri init` (recc to delete, rebuild after updating Carto.toml and tauri.conf.json with your app identifiers)
     - points to `../src/www`
-    - beforeDevCommand: `deno run -A bundle.ts`
-    - beforeBuildCommand: `deno run -A build.ts`
+    - beforeDevCommand: `deno run -A scripts/main.ts dev`
+    - beforeBuildCommand: `deno run -A scripts/main.ts build`
     - host: `http://localhost:3000`
 - Added Deno Files
-  - `bundle.ts`: for dev
-  - `build.ts`: for build
+  - `scripts/main.ts`: build script, using esbuild
+- Prevent screen rotation by modifying `/gen/android/app/app/src/main/AndroidManifest.xml`:
+  - adds `android:screenOrientation`
 
 # Usage
 

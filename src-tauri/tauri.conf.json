@@ -1,7 +1,7 @@
 {
   "build": {
-    "beforeBuildCommand": "deno run -A build.ts",
-    "beforeDevCommand": "deno run -A bundle.ts",
+    "beforeBuildCommand": "deno run -A scripts/main.ts build",
+    "beforeDevCommand": "deno run -A scripts/main.ts dev",
     "devPath": "http://localhost:3000",
     "distDir": "../src-www"
   },

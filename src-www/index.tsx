@@ -1,5 +1,4 @@
-/* @jsx h */
-import { h, render } from "preact";
+import { render } from "preact";
 
 function App() {
   return (<div>hello!</div>);
