@@ -19,23 +19,15 @@ if (Deno.args[0] === 'build') {
 async function createOptions(srcPath) {
   const importMapURL = new URL('file://' + resolve('./import_map.json'))
 
-  let inroConfig = {}
-  try {
-    const decoder = new TextDecoder('utf-8')
-    const data = await Deno.readFile('./inro.json')
-    inroConfig = JSON.parse(decoder.decode(data))
-  } catch (e) {}
-
   return {
     plugins: [denoPlugin({ importMapURL })],
     entryPoints: [srcPath ? srcPath + "index.ts" : './src-www/index.tsx'],
-    outfile: srcPath ? srcPath + "dist/main.js" : './src-www/dist/main.js',
+    outfile: srcPath ? srcPath + "main.js" : './src-www/main.js',
     bundle: true,
     format: 'esm',
     target: ['chrome99', 'safari15'],
     treeShaking: true,
     jsx: 'automatic',
-    jsxImportSource: 'preact',
-    ...inroConfig,
+    jsxImportSource: 'preact'
   }
 }

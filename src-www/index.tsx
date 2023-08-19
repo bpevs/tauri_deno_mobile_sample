@@ -1,13 +1,15 @@
 import { render } from "preact";
+import { useEffect } from "preact/hooks";
 import { invoke } from "@tauri-apps/api/tauri";
-
-(async function () {
-  const result = await invoke("greet", { name: "Hello!" });
-  console.log(result);
-})();
+import { signal } from "@preact/signals";
+const greetingText = signal("Did not yet greet")
 
 function App() {
-  return <div>hello!</div>;
+  useEffect(async () => {
+    greetingText.value = await invoke("greet", { name: "Joe" });
+  }, [])
+
+  return <div>{greetingText.value}</div>;
 }
 
 const mountPoint = document.getElementById("root") as HTMLElement;

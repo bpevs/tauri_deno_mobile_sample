@@ -1,70 +1,34 @@
-# Tauri Deno Mobile (Android) Sample
-Building on MacOS
-I only made this work with Android so far...
+# IPC Repro
 
-Heavy inspiration from [Tauri Deno Starter](https://github.com/marc2332/tauri-deno-starter)!
+Ignore all the deno stuff for this branch; built it into `main.js`.
 
-![Now you, too, can create fake native deno phone apps](./screenshot.png)
+Breaks on macOS desktop via `cargo tauri dev`, and Android via `cargo tauri android build --debug`
 
-# Environment Setup
+main.js code is built from [`src-www/index.tsx`](https://github.com/bpevs/tauri_deno_mobile_sample/blob/ipc-error-repro/src-www/index.tsx).
 
-Assuming you have already installed latest `Deno` and `Rust`...
+If you want to re-build it, you can do that by downloading Deno, and `deno run -A build.ts build`. Or just add other vanilla code to the index.html; the bug should still happen as long as you're using any ipc call. For example, adding `arch` also returns the same error:
 
-### Install full xcode (Maybe optional?)
-
-I had to install this to run `cargo mobile` and `cargo android`, which I mistakenly used first. So maybe `cargo tauri android` gets around this? I haven't uninstalled it, so not sure if it's actually necessary.
-
-When I was running `cargo mobile`, it made me use the full xcode instead of xcode-select, because it was trying to build for iOS. So maybe that is required as well, not sure.
-
-### Install Tauri Alpha Version (with Mobile)
-
-Just followed cargo add stuff from the [tauri blog post](https://tauri.app/blog/2022/12/09/tauri-mobile-alpha/), ignoring the npm stuff.
-
-### Android Stuff
-
-Basically, I followed [the Alpha Docs](https://next--tauri.netlify.app/next/guides/getting-started/prerequisites/macos)
-
-Downloaded Android Studio...
-
-The download for NDK was in:
-`Android Studio > Tools > SDK Manager > Android SDK > SDK TOOLS`
-
-I installed:
-- Android SDK Build-TOols
-- NDK (Side by side)
-- Android Emulator
-- Android SDK Platform-Tools
-
-Then found NDK version via `ls $HOME/Library/Android/sdk/ndk`
-
-My env variables ended up looking like this:
-```sh
-export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/Contents/Home"
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export NDK_HOME="$ANDROID_HOME/ndk/25.1.8937393"
+```ts
+import { arch } from '@tauri-apps/api/os';
+(function() {
+  const archName = await arch();
+})()
 ```
 
-# Project Setup
 
-How we got the repo to this point...
+# Quick Fix
 
-- build /gen dir: `cargo tauri init` (recc to delete, rebuild after updating Carto.toml and tauri.conf.json with your app identifiers)
-    - points to `../src/www`
-    - beforeDevCommand: `deno run -A scripts/main.ts dev`
-    - beforeBuildCommand: `deno run -A scripts/main.ts build`
-    - host: `http://localhost:3000`
-- Added Deno Files
-  - `scripts/main.ts`: build script, using esbuild
-- Prevent screen rotation by modifying `/gen/android/app/app/src/main/AndroidManifest.xml`:
-  - adds `android:screenOrientation`
+Revert tauri dep to next branch:
 
-# Usage
+```
+tauri = { git = "https://github.com/tauri-apps/tauri/", branch = "next" }
+```
 
-### Desktop
-- `tauri run dev`
-- `tauri run build`
+# To Use Latest Working Version
 
-### Android
-- `tauri run android init`
-- `tauri run android dev`
-- `tauri run android build --debug` (need to sign app for release build to work)
+1. change tauri dep to:
+`{ path = "/Users/my_user_name/desktop/tauri/core/tauri", version = "2.0.0-alpha.11" }`
+
+2. cloned https://github.com/tauri-apps/tauri to desktop.
+
+3. checkout to last good commit: `6b81d70a`
