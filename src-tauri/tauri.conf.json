@@ -1,7 +1,7 @@
 {
   "build": {
-    "beforeBuildCommand": "deno run -A scripts/main.ts build",
-    "beforeDevCommand": "deno run -A scripts/main.ts dev",
+    "beforeBuildCommand": "deno run -A build.ts build",
+    "beforeDevCommand": "deno run -A build.ts dev",
     "devPath": "http://localhost:3000",
     "distDir": "../src-www"
   },
@@ -10,9 +10,6 @@
     "version": "0.1.0"
   },
   "tauri": {
-    "allowlist": {
-      "all": false
-    },
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
@@ -48,9 +45,6 @@
     },
     "security": {
       "csp": null
-    },
-    "updater": {
-      "active": false
     },
     "windows": [
       {
