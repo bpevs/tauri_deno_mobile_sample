@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Tauri Deno Mobile Sample</string>
+    <string name="main_activity_title">Tauri Deno Mobile Sample</string>
+</resources>

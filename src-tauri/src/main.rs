@@ -1,8 +1,7 @@
-#![cfg_attr(
-  all(not(debug_assertions), target_os = "windows"),
-  windows_subsystem = "windows"
-)]
+#[cfg(desktop)]
+mod desktop;
 
-pub fn main() {
-  app::AppBuilder::new().run();
+fn main() {
+    #[cfg(desktop)]
+    desktop::main();
 }
