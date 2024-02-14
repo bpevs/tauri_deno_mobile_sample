@@ -1,10 +1,8 @@
 # Tauri Deno Mobile (Android) Sample
-Building on MacOS
-I only made this work with Android so far...
+
+For building Android apps on MacOS, using Tauri and Solidjs
 
 Heavy inspiration from [Tauri Deno Starter](https://github.com/marc2332/tauri-deno-starter)!
-
-![Now you, too, can create fake native deno phone apps](./screenshot.png)
 
 # Environment Setup
 
@@ -16,13 +14,13 @@ I had to install this to run `cargo mobile` and `cargo android`, which I mistake
 
 When I was running `cargo mobile`, it made me use the full xcode instead of xcode-select, because it was trying to build for iOS. So maybe that is required as well, not sure.
 
-### Install Tauri Alpha Version (with Mobile)
+### Install Tauri Beta Version (with Mobile)
 
-Just followed cargo add stuff from the [tauri blog post](https://tauri.app/blog/2022/12/09/tauri-mobile-alpha/), ignoring the npm stuff.
+Since it's beta, just make sure to specifically tag the version when installing Tauri: `cargo install tauri-cli@2.0.0-beta.{release version here}`
 
 ### Android Stuff
 
-Basically, I followed [the Alpha Docs](https://next--tauri.netlify.app/next/guides/getting-started/prerequisites/macos)
+Basically following the [getting started guide](https://tauri.app/v1/guides/getting-started/prerequisites), installing thrigs via cargo when possible, and ignoring the any npm stuff.
 
 Downloaded Android Studio...
 
@@ -60,11 +58,5 @@ How we got the repo to this point...
 
 # Usage
 
-### Desktop
-- `tauri run dev`
-- `tauri run build`
-
-### Android
-- `tauri run android init`
-- `tauri run android dev`
-- `tauri run android build --debug` (need to sign app for release build to work)
+Available tasks are in the `deno.json` file. Run like so:
+`deno task dev`

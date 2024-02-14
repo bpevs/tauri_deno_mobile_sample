@@ -13,12 +13,12 @@
     "exclude": ["src-www/dist/"]
   },
   "tasks": {
-    "test": "deno test -A ./src-www",
-    "test:all": "deno fmt && deno task check && deno lint && deno task test",
-    "test:update": "deno test -A -- --update source",
-    "check": "deno check ./src-www/index.tsx",
+    "test": "deno fmt && deno task test:check && deno lint && deno task test:unit",
+    "test:check": "deno check ./src-www/index.tsx",
+    "test:unit": "deno test -A ./src-www",
     "build": "cargo tauri android build --debug && deno task open",
     "dev": "cargo tauri dev",
+    "start": "cargo tauri android dev",
     "open": "open 'src-tauri/gen/android/app/build/outputs/apk/universal/debug'"
-  },
+  }
 }
